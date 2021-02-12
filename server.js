@@ -10,6 +10,7 @@ app.use(cors());
 
 const productsRoutes = require('./api/routes/products');
 const categoriesRoutes = require('./api/routes/categories');
+const ordersRoutes = require('./api/routes/orders');
 //const usersRoutes = require('./api/routes/users');
 
 app.use(morgan("dev"));
@@ -17,7 +18,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use(express.json());
 app.use(express.urlencoded({
-    extended: false
+    extended: true
 }));
 
 app.use((req, res, next) => {
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/products', productsRoutes);
 app.use('/categories', categoriesRoutes);
+app.use('/orders', ordersRoutes);
 //app.use('/users', usersRoutes);
 
 app.use((req, res, next) => {

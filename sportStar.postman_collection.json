@@ -440,27 +440,6 @@
 			"response": []
 		},
 		{
-			"name": "[DELETE] /Products/:product _id",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/Products/600c68c8903c5d48ec876075",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Products",
-						"600c68c8903c5d48ec876075"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "[GET] /Products/Brands",
 			"request": {
 				"method": "GET",
@@ -481,6 +460,105 @@
 						"Brands"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] /Orders?firstName&lastName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/Orders?firstName=&lastName=&address&phoneNumber=&email=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Orders"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": ""
+						},
+						{
+							"key": "lastName",
+							"value": ""
+						},
+						{
+							"key": "address",
+							"value": null
+						},
+						{
+							"key": "phoneNumber",
+							"value": ""
+						},
+						{
+							"key": "email",
+							"value": ""
+						}
+					]
+				},
+				"description": "קבלת הזמנות"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] /Orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"gilad\",\n\t\"lastName\": \"tamar\",\n\t\"address\": \"haim bar lev\",\n\t\"phoneNumber\": \"0509915190\",\n\t\"email\": \"g@gmail.com\",\n\t\"products\": [{\n\t\t\"product\": \"6003269ad440fd0fecc788cb\",\n\t\t\"quantity\": 2,\n\t\t\"size\": \"38\",\n\t\t\"price\": 590\n\t},\n\t{\n\t\t\"product\": \"6003269ad440fd0fecc788cb\",\n\t\t\"quantity\": 2,\n\t\t\"size\": \"40\",\n\t\t\"price\": 590\n\t}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/Orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Orders"
+					]
+				},
+				"description": "יצירת הזמנה"
+			},
+			"response": []
+		},
+		{
+			"name": "[DELETE] /Orders/:order_id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/Orders/6026f79f387a77536c656c87",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Orders",
+						"6026f79f387a77536c656c87"
+					]
+				},
+				"description": "מחיקת הזמנה"
 			},
 			"response": []
 		}
