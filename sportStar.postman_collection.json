@@ -139,7 +139,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjEzMjE2NTkxLCJleHAiOjE2MTMyMjAxOTF9.w0EPv9de8ojL3or4AnQmkPGfJxi4rzfQlSk3Dk-lBA8",
 						"type": "text"
 					}
 				],
@@ -148,7 +148,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/Categories/600c8360d35ebe0d68d54888",
+					"raw": "http://localhost:8080/Categories/6027bb80b45f1f51b8611ee7",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -156,7 +156,7 @@
 					"port": "8080",
 					"path": [
 						"Categories",
-						"600c8360d35ebe0d68d54888"
+						"6027bb80b45f1f51b8611ee7"
 					]
 				},
 				"description": "מחיקת קטגוריה"
@@ -579,7 +579,13 @@
 			"name": "[DELETE] /Orders/:order_id",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
 				"body": {},
 				"url": {
 					"raw": "http://localhost:8080/Orders/6026f79f387a77536c656c87?Authorization=Bearer",
