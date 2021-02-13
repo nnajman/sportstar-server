@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
 const upload = require('../middlewares/upload');
-//const checkAuth = require('../middlewares/checkAuth');
+const checkAuth = require('../middlewares/checkAuth');
 
 const {
     getCategories,
@@ -15,9 +14,9 @@ const {
 router.get('/', getCategories);
 router.get('/:categoryId', getCategory);
 
-//Add checkAuth
-router.post('/', upload.uploadCategory.single('image'), createCategory);
-router.patch('/:categoryId', upload.uploadCategory.single('image'), updateCategory);
-router.delete('/:categoryId', deleteCategory);
+//Admin
+router.post('/', checkAuth, upload.uploadCategory.single('image'), createCategory);
+router.patch('/:categoryId', checkAuth, upload.uploadCategory.single('image'), updateCategory);
+router.delete('/:categoryId', checkAuth, deleteCategory);
 
 module.exports = router;

@@ -39,6 +39,11 @@
 						"key": "Content-Type",
 						"value": "application/x-www-form-urlencoded",
 						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -84,6 +89,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -118,7 +128,7 @@
 						"600c12cc346a3853a475b403"
 					]
 				},
-				"description": "העלאת קטגוריה"
+				"description": "עדכון קטגוריה"
 			},
 			"response": []
 		},
@@ -126,7 +136,13 @@
 			"name": "[DELETE] /Categories/:categoryId",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -327,7 +343,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/Products",
+					"raw": "http://localhost:8080/Products?Authorization=Bearer",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -335,6 +351,12 @@
 					"port": "8080",
 					"path": [
 						"Products"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "Bearer"
+						}
 					]
 				},
 				"description": "העלאת מוצר"
@@ -424,7 +446,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/Products/600c5076346a3853a475b406",
+					"raw": "http://localhost:8080/Products/600c5076346a3853a475b406?Authorization=Bearer",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -433,6 +455,12 @@
 					"path": [
 						"Products",
 						"600c5076346a3853a475b406"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "Bearer"
+						}
 					]
 				},
 				"description": "עדכון מוצר"
@@ -459,7 +487,8 @@
 						"Products",
 						"Brands"
 					]
-				}
+				},
+				"description": "קבלת כל המותגים"
 			},
 			"response": []
 		},
@@ -470,10 +499,16 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjEzMTc5NTIyLCJleHAiOjE2MTMxODMxMjJ9.7t4BXAdp7nZePliZnmAWTQxyA2xVBCpNVv98lIqkC1k",
+						"type": "text"
+					}
+				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/Orders?firstName=&lastName=&address&phoneNumber=&email=",
+					"raw": "http://localhost:8080/Orders?firstName=&lastName=&address&phoneNumber=&email",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -501,7 +536,7 @@
 						},
 						{
 							"key": "email",
-							"value": ""
+							"value": null
 						}
 					]
 				},
@@ -547,7 +582,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/Orders/6026f79f387a77536c656c87",
+					"raw": "http://localhost:8080/Orders/6026f79f387a77536c656c87?Authorization=Bearer",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -556,9 +591,84 @@
 					"path": [
 						"Orders",
 						"6026f79f387a77536c656c87"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "Bearer"
+						}
 					]
 				},
 				"description": "מחיקת הזמנה"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] Users/signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\",\n\t\"firstName\": \"leo\",\n\t\"lastName\": \"messi\",\n\t\"phone\": \"0501010100\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/Users/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Users",
+						"signup"
+					]
+				},
+				"description": "הרשמה"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] Users/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/Users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Users",
+						"login"
+					]
+				},
+				"description": "התחברות"
 			},
 			"response": []
 		}
