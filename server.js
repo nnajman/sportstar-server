@@ -1,22 +1,23 @@
-const dotenv = require('dotenv');
-dotenv.config();
-const express = require('express');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const port = process.env.PORT || 8080;
-const app = express();
 const cors = require('cors');
-app.use(cors());
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const express = require('express');
+const mongoose = require('mongoose');
+const socketIo = require('socket.io');
+
+const port = process.env.PORT || 8080;
+dotenv.config();
 
 const productsRoutes = require('./api/routes/products');
 const categoriesRoutes = require('./api/routes/categories');
 const ordersRoutes = require('./api/routes/orders');
 const usersRoutes = require('./api/routes/users');
 
+const app = express();
 app.use(morgan("dev"));
-app.use('/uploads', express.static('uploads'));
-
+app.use(cors());
 app.use(express.json());
+
 app.use(express.urlencoded({
     extended: true
 }));
@@ -36,12 +37,13 @@ app.use('/products', productsRoutes);
 app.use('/categories', categoriesRoutes);
 app.use('/orders', ordersRoutes);
 app.use('/users', usersRoutes);
+app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;
     next(error);
-})
+});
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
@@ -49,18 +51,33 @@ app.use((error, req, res, next) => {
         error: {
             message: error.message
         }
-    })
-})
+    });
+});
 
 
-mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@sportstar.deqis.mongodb.net/sportstar?retryWrites=true&w=majority`,{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
+mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@sportstar.deqis.mongodb.net/sportstar?retryWrites=true&w=majority`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
 })
 .then(() => {
-  console.log('Connected to database');
-  app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-  });
+    console.log('Connected to database');
+    var server = app.listen(port, () => {
+        console.log(`Server listening on port ${port}`);
+    });
+
+    const io = socketIo(server);
+    var count = 0;
+    io.on('connection', (socket) => {
+        console.log('new connection');
+        if (socket.handshake.headers.origin === 'http://localhost:4200') {
+            count++;
+            socket.broadcast.emit('count', count);
+
+            socket.on('disconnect', () => {
+                count--;
+                socket.broadcast.emit('count', count);
+            });
+        }
+    });
 });
