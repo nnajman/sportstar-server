@@ -62,11 +62,15 @@ mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoD
 })
 .then(() => {
     console.log('Connected to database');
-    var server = app.listen(port, () => {
+    const server = app.listen(port, () => {
         console.log(`Server listening on port ${port}`);
     });
 
-    const io = socketIo(server);
+    const io = socketIo(server, {
+        cors:{
+            origins: ["http://localhost:4200"]
+        }
+    });
     var count = 0;
     io.on('connection', (socket) => {
         console.log('new connection');
