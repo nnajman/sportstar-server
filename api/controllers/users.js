@@ -82,5 +82,96 @@ module.exports = {
                 });
             })
         })
+    },
+    getUsers: (req, res) => {
+        const {email, firstName, lastName, phone} = req.query;
+        let emailRegExp, firstNameRegExp, lastNameRegExp, phoneRegExp;
+    
+        //Check if get params and build the regex
+        email ? (emailRegExp = `${email}`) : (emailRegExp = "");
+        firstName ? (firstNameRegExp = `^${firstName}$`) : (firstNameRegExp = "");
+        lastName ? (lastNameRegExp = `^${lastName}$`) : (lastNameRegExp = "");
+        phone ? (phoneRegExp = `^${phone}$`) : (phoneRegExp = "");
+    
+        User.find({
+          $and: [
+            { email: new RegExp(emailRegExp, "i") },
+            { firstName: new RegExp(firstNameRegExp, "i") },
+            { lastName: new RegExp(lastNameRegExp, "i") },
+            { phone: new RegExp(phoneRegExp, "i") }
+          ],
+        })
+          .then((users) => {
+            res.status(200).json({
+                users,
+            });
+          })
+          .catch((error) => {
+            res.status(500).json({
+              error,
+            });
+          });
+    },
+    updateUser: (req, res) => {
+        const userId = req.params.userId;
+
+        User.findById(userId)
+        .then((user) => {
+            if (!user) {
+                return res.status(404).json({
+                    message: "User not found",
+                });
+            }
+            User.updateOne({ _id: userId }, req.body)
+            .then(() => {
+                res.status(200).json({
+                 message: "User Updated",
+                });
+            })
+            .catch((error) => {
+                return res.status(500).json({
+                    error,
+                });
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                error,
+            });
+        });
+    },
+    deleteUser: (req, res) => {
+        const userId = req.params.userId;
+
+        User.findById(userId)
+        .then((user) => {
+            if (!user) {
+                return res.status(404).json({
+                    message: "User not found",
+                });
+            }
+            else if (user.email == "admin@gmail.com") {
+                return res.status(405).json({
+                    message: "Can not delete default user",
+                });
+            }
+           
+            User.deleteOne({ _id: userId })
+            .then(() => {
+                return res.status(200).json({
+                message: `User _id:${userId} Deleted`,
+                });
+            })
+            .catch((error) => {
+                res.status(500).json({
+                error,
+                });
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+            error,
+            });
+        });
     }
 }

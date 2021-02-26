@@ -183,5 +183,5 @@ module.exports = {
           error,
         });
       });
-  },
+  }
 };

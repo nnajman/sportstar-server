@@ -4,12 +4,18 @@ const checkAuth = require('../middlewares/checkAuth');
 
 const {
     signup,
-    login
+    login,
+    getUsers,
+    deleteUser,
+    updateUser
 } = require('../controllers/users');
 
 router.post('/login', login);
 
 //Admin
 router.post('/signup', checkAuth, signup);
+router.get('/', checkAuth, getUsers);
+router.patch('/:userId', checkAuth, updateUser);
+router.delete('/:userId', checkAuth, deleteUser);
 
 module.exports = router;
