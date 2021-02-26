@@ -9,15 +9,18 @@ const {
     getOrder,
     createOrder,
     deleteOrder,
+    getOrderPerDate
 } = require('../controllers/orders');
 
 
 router.post('/' ,createOrder);
 
-//TODO: statistic
 //Admin
 router.get('/', checkAuth, getOrders);
 router.get('/:orderId', checkAuth, getOrder);
 router.delete('/:orderId', checkAuth, deleteOrder);
+//Statistics
+router.get('/statistics/orderPerDate', checkAuth, getOrderPerDate);
+
 
 module.exports = router;

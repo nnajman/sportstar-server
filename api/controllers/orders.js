@@ -215,6 +215,26 @@ module.exports = {
       .finally(()=>{
         session.endSession();
       });
+    },
+    getOrderPerDate: (req, res) => {
+      Order.aggregate([
+        {
+           $group: {
+           _id : { $dateToString: {format: "%d-%m-%Y", date : "$dateCreated"} },
+           totalOrders: { $sum: 1 } 
+          }
+        }
+      ])
+      .then((ordersPerDate) => {
+        res.status(200).json({
+          ordersPerDate,
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error,
+        });
+      });
     }
 }
   
