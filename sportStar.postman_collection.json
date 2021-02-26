@@ -173,7 +173,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/Products?",
+					"raw": "http://localhost:8080/Products?name=ame",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -185,8 +185,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "30",
-							"disabled": true
+							"value": "ame"
 						},
 						{
 							"key": "brand",
@@ -269,6 +268,11 @@
 						"name": "Content-Type",
 						"value": "application/x-www-form-urlencoded",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0MzQ3NjY2LCJleHAiOjE2MTQzNTEyNjZ9.ZVRMtyrbV5UVhtMlOQHoBK4eVHNkT4pjaJyv6k1kN3o",
+						"equals": true
 					}
 				],
 				"body": {
@@ -276,7 +280,7 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Ultraboost 3000",
+							"value": "test",
 							"type": "text"
 						},
 						{
@@ -343,7 +347,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/Products?Authorization=Bearer",
+					"raw": "http://localhost:8080/Products",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -351,12 +355,6 @@
 					"port": "8080",
 					"path": [
 						"Products"
-					],
-					"query": [
-						{
-							"key": "Authorization",
-							"value": "Bearer"
-						}
 					]
 				},
 				"description": "העלאת מוצר"
@@ -373,6 +371,11 @@
 						"name": "Content-Type",
 						"type": "text",
 						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0MzQ3NjY2LCJleHAiOjE2MTQzNTEyNjZ9.ZVRMtyrbV5UVhtMlOQHoBK4eVHNkT4pjaJyv6k1kN3o",
+						"equals": true
 					}
 				],
 				"body": {
@@ -446,7 +449,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/Products/600c5076346a3853a475b406?Authorization=Bearer",
+					"raw": "http://localhost:8080/Products/600c5076346a3853a475b406",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -455,12 +458,6 @@
 					"path": [
 						"Products",
 						"600c5076346a3853a475b406"
-					],
-					"query": [
-						{
-							"key": "Authorization",
-							"value": "Bearer"
-						}
 					]
 				},
 				"description": "עדכון מוצר"
@@ -493,6 +490,31 @@
 			"response": []
 		},
 		{
+			"name": "[GET] /Products/perBrands",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/Products/perBrands",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Products",
+						"perBrands"
+					]
+				},
+				"description": "קבלת כמות מוצרים למותג"
+			},
+			"response": []
+		},
+		{
 			"name": "[GET] /Orders?firstName&lastName",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -508,7 +530,7 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/Orders?firstName=gilad&lastName=&address&phoneNumber=&email",
+					"raw": "http://localhost:8080/Orders?firstName=&lastName=&address&phoneNumber=&email",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -520,7 +542,7 @@
 					"query": [
 						{
 							"key": "firstName",
-							"value": "gilad"
+							"value": ""
 						},
 						{
 							"key": "lastName",
@@ -558,7 +580,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"firstName\": \"gilad\",\n\t\"lastName\": \"tamar\",\n\t\"address\": \"haim bar lev\",\n\t\"phoneNumber\": \"0509915190\",\n\t\"email\": \"g@gmail.com\",\n\t\"products\": [{\n\t\t\"product\": \"6003269ad440fd0fecc788cb\",\n\t\t\"quantity\": 2,\n\t\t\"size\": \"38\",\n\t\t\"price\": 590\n\t},\n\t{\n\t\t\"product\": \"6003269ad440fd0fecc788cb\",\n\t\t\"quantity\": 2,\n\t\t\"size\": \"40\",\n\t\t\"price\": 590\n\t}]\n}"
+					"raw": "{\n\t\"firstName\": \"gilad\",\n\t\"lastName\": \"tamar\",\n\t\"address\": \"haim bar lev\",\n\t\"phoneNumber\": \"0509915190\",\n\t\"email\": \"g@gmail.com\",\n\t\"products\": [{\n\t\t\"product\": \"6003269ad440fd0fecc788cb\",\n\t\t\"quantity\": 1,\n\t\t\"size\": \"46\",\n\t\t\"price\": 590\n\t},\n\t{\n\t\t\"product\": \"6003269ad440fd0fecc788cb\",\n\t\t\"quantity\": 1,\n\t\t\"size\": \"50\",\n\t\t\"price\": 590\n\t}]\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/Orders",
@@ -588,7 +610,7 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/Orders/6026f79f387a77536c656c87?Authorization=Bearer",
+					"raw": "http://localhost:8080/Orders/6026f79f387a77536c656c87",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -597,12 +619,6 @@
 					"path": [
 						"Orders",
 						"6026f79f387a77536c656c87"
-					],
-					"query": [
-						{
-							"key": "Authorization",
-							"value": "Bearer"
-						}
 					]
 				},
 				"description": "מחיקת הזמנה"
@@ -791,6 +807,38 @@
 					]
 				},
 				"description": "עדכון יוזר"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] /Orders/statistics/orderPerDate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0MzQzMDU2LCJleHAiOjE2MTQzNDY2NTZ9.dpCx-3tia_y4oBPs22u2feCrh3t0K-az6T0jOnun7gM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/Orders/statistics/orderPerDate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Orders",
+						"statistics",
+						"orderPerDate"
+					]
+				},
+				"description": "קבלת מספר הזמנות בכל יום"
 			},
 			"response": []
 		}

@@ -7,6 +7,7 @@ const checkAuth = require('../middlewares/checkAuth');
 const {
     getProducts,
     getProduct,
+    getProductsPerBrands,
     createProduct,
     updateProduct,
     deleteProduct,
@@ -15,6 +16,7 @@ const {
 
 router.get('/', getProducts);
 router.get('/brands', getBrands);
+router.get('/perBrands', getProductsPerBrands);
 router.get('/:productId', getProduct);
 
 //Admin

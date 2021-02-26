@@ -307,4 +307,24 @@ module.exports = {
         });
       });
   },
+  getProductsPerBrands: (req, res) => {
+    Product.aggregate([
+      {
+         $group: {
+         _id : "$brand" ,
+         totalOrders: { $sum: 1 } 
+        }
+      }
+    ])
+    .then((productsPerBrand) => {
+      res.status(200).json({
+        productsPerBrand,
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error,
+      });
+    });
+  }
 };
