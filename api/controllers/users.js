@@ -84,33 +84,61 @@ module.exports = {
         })
     },
     getUsers: (req, res) => {
-        const {email, firstName, lastName, phone} = req.query;
+        const {email, firstName, lastName, phone, inclusive} = req.query;
         let emailRegExp, firstNameRegExp, lastNameRegExp, phoneRegExp;
     
         //Check if get params and build the regex
-        email ? (emailRegExp = `${email}`) : (emailRegExp = "");
-        firstName ? (firstNameRegExp = `^${firstName}$`) : (firstNameRegExp = "");
-        lastName ? (lastNameRegExp = `^${lastName}$`) : (lastNameRegExp = "");
-        phone ? (phoneRegExp = `^${phone}$`) : (phoneRegExp = "");
-    
-        User.find({
-          $and: [
-            { email: new RegExp(emailRegExp, "i") },
-            { firstName: new RegExp(firstNameRegExp, "i") },
-            { lastName: new RegExp(lastNameRegExp, "i") },
-            { phone: new RegExp(phoneRegExp, "i") }
-          ],
-        })
-          .then((users) => {
-            res.status(200).json({
-                users,
-            });
-          })
-          .catch((error) => {
-            res.status(500).json({
-              error,
-            });
-          });
+        if (inclusive === 'true' || inclusive === true) {
+            email ? (emailRegExp = `${email}`) : (emailRegExp = "");
+            firstName ? (firstNameRegExp = `${firstName}`) : (firstNameRegExp = "");
+            lastName ? (lastNameRegExp = `${lastName}`) : (lastNameRegExp = "");
+            phone ? (phoneRegExp = `${phone}`) : (phoneRegExp = "");
+
+            User.find({
+                $and: [
+                  { email: new RegExp(emailRegExp, "i") },
+                  { firstName: new RegExp(firstNameRegExp, "i") },
+                  { lastName: new RegExp(lastNameRegExp, "i") },
+                  { phone: new RegExp(phoneRegExp, "i") }
+                ],
+              })
+                .then((users) => {
+                  res.status(200).json({
+                      users,
+                  });
+                })
+                .catch((error) => {
+                  res.status(500).json({
+                    error,
+                  });
+                });
+        } else {
+            email ? (emailRegExp = `${email}`) : (emailRegExp = "^$");
+            firstName ? (firstNameRegExp = `${firstName}`) : (firstNameRegExp = "^$");
+            lastName ? (lastNameRegExp = `${lastName}`) : (lastNameRegExp = "^$");
+            phone ? (phoneRegExp = `${phone}`) : (phoneRegExp = "^$");
+
+            User.find({
+                $or: [
+                  { email: new RegExp(emailRegExp, "i") },
+                  { firstName: new RegExp(firstNameRegExp, "i") },
+                  { lastName: new RegExp(lastNameRegExp, "i") },
+                  { phone: new RegExp(phoneRegExp, "i") }
+                ],
+              })
+                .then((users) => {
+                  res.status(200).json({
+                      users,
+                  });
+                })
+                .catch((error) => {
+                  res.status(500).json({
+                    error,
+                  });
+                });
+        }
+        
+        
     },
     getUser: (req, res) => {
         const userId = req.params.userId;

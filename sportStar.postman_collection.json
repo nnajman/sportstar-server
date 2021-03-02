@@ -804,7 +804,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/Users?email&firstName=&lastName&phone",
+					"raw": "http://localhost:8080/Users?email=052&firstName=052&lastName=052&phone=052&inclusive=false",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -816,19 +816,23 @@
 					"query": [
 						{
 							"key": "email",
-							"value": null
+							"value": "052"
 						},
 						{
 							"key": "firstName",
-							"value": ""
+							"value": "052"
 						},
 						{
 							"key": "lastName",
-							"value": null
+							"value": "052"
 						},
 						{
 							"key": "phone",
-							"value": null
+							"value": "052"
+						},
+						{
+							"key": "inclusive",
+							"value": "false"
 						}
 					]
 				},
