@@ -42,7 +42,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0NDM1NDYyLCJleHAiOjE2MTQ0MzkwNjJ9._B-kCxuXUF6HVOr41BwubBqMg0i7aksENCQwkXjZ5s8",
 						"type": "text"
 					}
 				],
@@ -51,12 +51,12 @@
 					"formdata": [
 						{
 							"key": "title",
-							"value": "test",
+							"value": "SCRAPER",
 							"type": "text"
 						},
 						{
 							"key": "gender",
-							"value": "Men",
+							"value": "Women",
 							"type": "text"
 						},
 						{
@@ -362,6 +362,37 @@
 			"response": []
 		},
 		{
+			"name": "[POST] /Products/scrape",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0NDM1NDYyLCJleHAiOjE2MTQ0MzkwNjJ9._B-kCxuXUF6HVOr41BwubBqMg0i7aksENCQwkXjZ5s8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/Products/scrape",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Products",
+						"scrape"
+					]
+				},
+				"description": "add products with scrape"
+			},
+			"response": []
+		},
+		{
 			"name": "[PATCH] /Products/:peoduct_id",
 			"request": {
 				"method": "PATCH",
@@ -598,14 +629,14 @@
 			"response": []
 		},
 		{
-			"name": "[DELETE] /Orders/:order_id",
+			"name": "[DELETE] /Orders/:orderId",
 			"request": {
 				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer ",
-						"type": "text"
+						"type": "text",
+						"value": "Bearer "
 					}
 				],
 				"body": {},
@@ -622,6 +653,38 @@
 					]
 				},
 				"description": "מחיקת הזמנה"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] /Orders/statistics/orderPerDate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0MzQzMDU2LCJleHAiOjE2MTQzNDY2NTZ9.dpCx-3tia_y4oBPs22u2feCrh3t0K-az6T0jOnun7gM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/Orders/statistics/orderPerDate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Orders",
+						"statistics",
+						"orderPerDate"
+					]
+				},
+				"description": "קבלת מספר הזמנות בכל יום"
 			},
 			"response": []
 		},
@@ -774,6 +837,37 @@
 			"response": []
 		},
 		{
+			"name": "[GET] /Users/:userId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/Users/602728013692a735a023eebc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Users",
+						"602728013692a735a023eebc"
+					]
+				},
+				"description": "קבלת משתמש לפי ID"
+			},
+			"response": []
+		},
+		{
 			"name": "[PATCH] /Users/:userId",
 			"request": {
 				"method": "PATCH",
@@ -807,38 +901,6 @@
 					]
 				},
 				"description": "עדכון יוזר"
-			},
-			"response": []
-		},
-		{
-			"name": "[GET] /Orders/statistics/orderPerDate",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjcyODAxMzY5MmE3MzVhMDIzZWViYyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNjE0MzQzMDU2LCJleHAiOjE2MTQzNDY2NTZ9.dpCx-3tia_y4oBPs22u2feCrh3t0K-az6T0jOnun7gM",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/Orders/statistics/orderPerDate",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Orders",
-						"statistics",
-						"orderPerDate"
-					]
-				},
-				"description": "קבלת מספר הזמנות בכל יום"
 			},
 			"response": []
 		}
