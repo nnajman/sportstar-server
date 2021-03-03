@@ -88,31 +88,7 @@ module.exports = {
         let emailRegExp, firstNameRegExp, lastNameRegExp, phoneRegExp;
     
         //Check if get params and build the regex
-        if (inclusive === 'true' || inclusive === true) {
-            email ? (emailRegExp = `${email}`) : (emailRegExp = "");
-            firstName ? (firstNameRegExp = `${firstName}`) : (firstNameRegExp = "");
-            lastName ? (lastNameRegExp = `${lastName}`) : (lastNameRegExp = "");
-            phone ? (phoneRegExp = `${phone}`) : (phoneRegExp = "");
-
-            User.find({
-                $and: [
-                  { email: new RegExp(emailRegExp, "i") },
-                  { firstName: new RegExp(firstNameRegExp, "i") },
-                  { lastName: new RegExp(lastNameRegExp, "i") },
-                  { phone: new RegExp(phoneRegExp, "i") }
-                ],
-              })
-                .then((users) => {
-                  res.status(200).json({
-                      users,
-                  });
-                })
-                .catch((error) => {
-                  res.status(500).json({
-                    error,
-                  });
-                });
-        } else {
+        if (inclusive === 'false' || inclusive === false) {
             email ? (emailRegExp = `${email}`) : (emailRegExp = "^$");
             firstName ? (firstNameRegExp = `${firstName}`) : (firstNameRegExp = "^$");
             lastName ? (lastNameRegExp = `${lastName}`) : (lastNameRegExp = "^$");
@@ -135,6 +111,30 @@ module.exports = {
                   res.status(500).json({
                     error,
                   });
+            });
+        } else {
+            email ? (emailRegExp = `${email}`) : (emailRegExp = "");
+            firstName ? (firstNameRegExp = `${firstName}`) : (firstNameRegExp = "");
+            lastName ? (lastNameRegExp = `${lastName}`) : (lastNameRegExp = "");
+            phone ? (phoneRegExp = `${phone}`) : (phoneRegExp = "");
+
+            User.find({
+                $and: [
+                    { email: new RegExp(emailRegExp, "i") },
+                    { firstName: new RegExp(firstNameRegExp, "i") },
+                    { lastName: new RegExp(lastNameRegExp, "i") },
+                    { phone: new RegExp(phoneRegExp, "i") }
+                ],
+                })
+                .then((users) => {
+                    res.status(200).json({
+                        users,
+                    });
+                })
+                .catch((error) => {
+                    res.status(500).json({
+                    error,
+                    });
                 });
         }
         
