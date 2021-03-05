@@ -157,7 +157,14 @@ module.exports = {
     },
     updateUser: (req, res) => {
         const userId = req.params.userId;
+        const {password} = req.body;
 
+        if (password || password == '') {
+            return res.status(405).json({
+                message: "Can not change password",
+            });
+        }
+        
         User.findById(userId)
         .then((user) => {
             if (!user) {
