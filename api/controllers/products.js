@@ -192,6 +192,7 @@ module.exports = {
       // Merge all equal size in stock
       if (req.body.stock) {
         // For working with postman (postman send quantity as string)
+        req.body.stock = JSON.parse(req.body.stock);
         req.body.stock.forEach((s) => {
           s.quantity = Number(s.quantity);
         });
