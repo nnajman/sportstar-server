@@ -11,7 +11,8 @@ const {
     createProduct,
     updateProduct,
     deleteProduct,
-    getBrands
+    getBrands,
+    scrape
 } = require('../controllers/products');
 
 router.get('/', getProducts);
@@ -21,6 +22,7 @@ router.get('/:productId', getProduct);
 
 //Admin
 router.post('/', checkAuth, upload.uploadProduct.single('image') ,createProduct);
+router.post('/scrape' ,scrape);
 router.patch('/:productId', checkAuth, upload.uploadProduct.single('image'), updateProduct);
 router.delete('/:productId', checkAuth, deleteProduct);
 
