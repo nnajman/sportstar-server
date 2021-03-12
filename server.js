@@ -79,7 +79,9 @@ mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoD
     });
     var count = 0;
     io.on('connection', (socket) => {
-        console.log('new connection');
+        if (socket.handshake.headers.origin === 'http://localhost:3000') {
+            socket.emit('count', count);
+        }      
         if (socket.handshake.headers.origin === 'http://localhost:4200') {
             count++;
             socket.broadcast.emit('count', count);
