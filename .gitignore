@@ -27,4 +27,4 @@ coverage
 .history/
 
 # Environment variables
-.env
+#.env

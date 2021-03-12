@@ -155,6 +155,11 @@ module.exports = {
   deleteCategory: (req, res) => {
     const categoryId = req.params.categoryId;
     let categoryImage;
+    if (categoryId == "603a54b22ff97741a8b54d80") {
+      return res.status(400).json({
+        message: "Scrape category can't be deleted",
+      });
+    }
 
     Category.findById(categoryId)
       .then((category) => {

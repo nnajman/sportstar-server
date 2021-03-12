@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Product = require("../models/product");
 const Category = require("../models/category");
 const fs = require("fs");
+const { scrape } = require("../scraper");
+
 
 function groupBy(key) {
   return function group(array) {
@@ -326,5 +328,16 @@ module.exports = {
         error,
       });
     });
+  },
+  scrape: (req,res) =>{
+    try {
+      scrape();
+    } catch (error) {
+      console.log(error);
+    }
+    
+    res.status(200).json({
+      
+    });
   }
-};
+}

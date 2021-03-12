@@ -17,6 +17,6 @@ router.get('/:categoryId', getCategory);
 //Admin
 router.post('/', checkAuth, upload.uploadCategory.single('image'), createCategory);
 router.patch('/:categoryId', checkAuth, upload.uploadCategory.single('image'), updateCategory);
-router.delete('/:categoryId', checkAuth, deleteCategory);
+router.delete('/:categoryId', deleteCategory);
 
 module.exports = router;
