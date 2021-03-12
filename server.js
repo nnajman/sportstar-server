@@ -15,7 +15,9 @@ const usersRoutes = require('./api/routes/users');
 
 const app = express();
 app.use(morgan("dev"));
-app.use(cors());
+
+const corsConfig = {credentials: true, origin: 'http://localhost:3000'};
+app.use(cors(corsConfig));
 app.use(express.json());
 
 app.use(express.urlencoded({
@@ -23,8 +25,8 @@ app.use(express.urlencoded({
 }));
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", 'http://localhost:3000', 'http://localhost:4200');
-    // res.header('Access-Control-Allow-Credentials', true);
+    res.header("Access-Control-Allow-Origin", 'http://localhost:3000');
+    //res.header('Access-Control-Allow-Credentials', true);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     if (req.method === "OPTIONS") {
         res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
@@ -68,11 +70,12 @@ mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoD
     });
 
     const io = socketIo(server, {
-        cors:{
-            origins: ["http://localhost:4200", "http://localhost:3000"],
-            methods: ["GET", "POST"]
+        cors: {
+            origin: ["http://localhost:4200", "http://localhost:3000"],
+            methods: ["GET", "POST"],
+            credentials: true
         },
-        
+        allowEIO3: true
     });
     var count = 0;
     io.on('connection', (socket) => {
