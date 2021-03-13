@@ -273,7 +273,23 @@ module.exports = {
         results,
         });
     }
-     )}
+     )},
+    totalSumPerDate: (req, res) => {
+      Order.mapReduce({
+        map: () => emit(this.dateCreated, Array.sum(this.products.map(product => product.price))),
+        reduce: (key, values) => Array.sum(values),
+      })
+      .then((totalSumPerDate) => {
+        res.status(200).json({
+          totalSumPerDate
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error
+        });
+      });
+    }
 }
   
         

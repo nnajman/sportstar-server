@@ -10,7 +10,8 @@ const {
     createOrder,
     deleteOrder,
     getOrderPerDate,
-    getProductsOrder
+    getProductsOrder,
+    totalSumPerDate
 } = require('../controllers/orders');
 
 
@@ -23,6 +24,6 @@ router.delete('/:orderId', checkAuth, deleteOrder);
 //Statistics
 router.get('/statistics/orderPerDate', checkAuth, getOrderPerDate);
 router.get('/statistics/orderPerProducts', getProductsOrder);
-
+router.get('/statistics/totalSumPerDate', totalSumPerDate);
 
 module.exports = router;
