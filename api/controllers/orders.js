@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Order = require("../models/order");
 const Product = require("../models/product");
+const emitterFile = require('../../eventEmitter');
+myEmitter = emitterFile.emitter;
 
 module.exports = {
     getOrders: (req, res) => {
@@ -130,6 +132,7 @@ module.exports = {
         Order.create([order],{session: session})
             .then(async () => {
               await session.commitTransaction();
+              myEmitter.emit('orderAdded');
               res.status(200).json({
                 message: "Created order",
               });

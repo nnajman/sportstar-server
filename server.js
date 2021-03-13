@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
 const socketIo = require('socket.io');
+const emitterFile = require('./eventEmitter');
+myEmitter = emitterFile.emitter;
 
 const port = process.env.PORT || 8080;
 dotenv.config();
@@ -81,6 +83,10 @@ mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoD
     io.on('connection', (socket) => {
         if (socket.handshake.headers.origin === 'http://localhost:3000') {
             socket.emit('count', count);
+            myEmitter.on('orderAdded', () => {
+                  console.log('an event occurred!');
+                  socket.emit('orderAdded');
+            });
         }      
         if (socket.handshake.headers.origin === 'http://localhost:4200') {
             count++;
@@ -92,4 +98,5 @@ mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoD
             });
         }
     });
+    
 });
