@@ -242,7 +242,7 @@ module.exports = {
 
     totalSumPerDate: (req, res) => {
       Order.mapReduce({
-        map: (order) => emit(this.dateCreated, Array.sum(this.products.map(product => product.price))),
+        map: () => emit(this.dateCreated, Array.sum(this.products.map(product => product.price))),
         reduce: (key, values) => Array.sum(values),
       })
       .then((totalSumPerDate) => {
