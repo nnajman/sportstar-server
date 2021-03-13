@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Order = require("../models/order");
 const Product = require("../models/product");
 const emitterFile = require('../../eventEmitter');
+const { emit } = require("../models/order");
 myEmitter = emitterFile.emitter;
 
 module.exports = {
@@ -237,7 +238,24 @@ module.exports = {
           error,
         });
       });
-    }
+    },
+
+    totalSumPerDate: (req, res) => {
+      Order.mapReduce({
+        map: (order) => emit(this.dateCreated, Array.sum(this.products.map(product => product.price))),
+        reduce: (key, values) => Array.sum(values),
+      })
+      .then((totalSumPerDate) => {
+        res.status(200).json({
+          totalSumPerDate
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error
+        });
+      });
+    },
 }
   
         
