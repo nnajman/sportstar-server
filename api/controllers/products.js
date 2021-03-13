@@ -134,13 +134,16 @@ module.exports = {
           message: "Category not found",
         });
       }
+
+      req.body.stock = JSON.parse(req.body.stock);
+      
       // For working with postman (postman send quantity as string)
-      stock.forEach((s) => {
+      req.body.stock.forEach((s) => {
         s.quantity = Number(s.quantity);
       });
 
       // Merge all equal size
-      let stockDistinctSize = groupBySize(stock);
+      let stockDistinctSize = groupBySize(req.body.stock);
 
       const product = new Product({
         _id: new mongoose.Types.ObjectId(),

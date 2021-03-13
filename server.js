@@ -18,7 +18,7 @@ const usersRoutes = require('./api/routes/users');
 const app = express();
 app.use(morgan("dev"));
 
-const corsConfig = {credentials: true, origin: 'http://localhost:3000'};
+const corsConfig = {credentials: true, origin: ['http://localhost:3000', 'http://localhost:4200']};
 app.use(cors(corsConfig));
 app.use(express.json());
 
@@ -27,7 +27,7 @@ app.use(express.urlencoded({
 }));
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", 'http://localhost:3000');
+    res.header("Access-Control-Allow-Origin", 'http://localhost:3000', 'http://localhost:4200');
     //res.header('Access-Control-Allow-Credentials', true);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     if (req.method === "OPTIONS") {
