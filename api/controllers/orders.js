@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Order = require("../models/order");
 const Product = require("../models/product");
 const emitterFile = require('../../eventEmitter');
+const order = require("../models/order");
+const { emit } = require("../models/order");
 myEmitter = emitterFile.emitter;
 
 module.exports = {
@@ -237,7 +239,41 @@ module.exports = {
           error,
         });
       });
+    },
+    getProductsOrder: (req, res) => {
+      var mapper = function(){
+        for (var idx = 0; idx < this.products.length; idx++) {
+          var key = this.products[idx].product;
+          var value = this.products[idx].quantity;
+   
+          emit(key, value);
+       }
+      }
+      var reducer = function(key, countObjVals) {
+        reducedVal = 0;
+     
+        for (var idx = 0; idx < countObjVals.length; idx++) {
+            reducedVal += countObjVals[idx];
+        }
+     
+        return reducedVal;
+     };
+
+     Order.mapReduce({
+      map: mapper,
+      reduce:  reducer, 
+      out : "products orders"
+  }, function (err, results) { 
+    if (err) {
+      return res.status(500).json({
+        err
+        });
+      }
+    return res.status(200).json({
+        results,
+        });
     }
+     )}
 }
   
         
