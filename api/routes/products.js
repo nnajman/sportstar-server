@@ -22,7 +22,7 @@ router.get('/:productId', getProduct);
 
 //Admin
 router.post('/', checkAuth, upload.uploadProduct.single('image') ,createProduct);
-router.post('/scrape' ,scrape);
+router.post('/scrape', checkAuth ,scrape);
 router.patch('/:productId', checkAuth, upload.uploadProduct.single('image'), updateProduct);
 router.delete('/:productId', checkAuth, deleteProduct);
 
