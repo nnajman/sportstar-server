@@ -132,7 +132,6 @@ module.exports = {
         Order.create([order],{session: session})
             .then(async () => {
               await session.commitTransaction();
-              myEmitter.emit('orderAdded');
               res.status(200).json({
                 message: "Created order",
               });

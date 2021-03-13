@@ -83,10 +83,6 @@ mongoose.connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoD
     io.on('connection', (socket) => {
         if (socket.handshake.headers.origin === 'http://localhost:3000') {
             socket.emit('count', count);
-            myEmitter.on('orderAdded', () => {
-                  console.log('an event occurred!');
-                  socket.emit('orderAdded');
-            });
         }      
         if (socket.handshake.headers.origin === 'http://localhost:4200') {
             count++;
