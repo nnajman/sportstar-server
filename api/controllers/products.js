@@ -56,8 +56,9 @@ module.exports = {
     // else check if categoryId is defined than return empty products
     if (mongoose.Types.ObjectId.isValid(categoryId)) {
       categoryIdCriteria = { category: categoryId };
-    } else if (categoryId) {
-      res.status(200).json({
+    }
+     else if (categoryId && categoryId != "blank") {
+      return res.status(200).json({
         products: [],
       });
     }
@@ -85,6 +86,9 @@ module.exports = {
     })
       .populate("category")
       .then((products) => {
+        if (categoryId == "blank") {
+          products = products.filter((p)=>!p.category)
+        }
         res.status(200).json({
           products,
         });
