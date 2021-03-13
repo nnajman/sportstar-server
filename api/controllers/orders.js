@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Order = require("../models/order");
 const Product = require("../models/product");
+const emitterFile = require('../../eventEmitter');
+myEmitter = emitterFile.emitter;
 
 module.exports = {
     getOrders: (req, res) => {

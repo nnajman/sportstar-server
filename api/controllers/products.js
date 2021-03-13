@@ -56,8 +56,9 @@ module.exports = {
     // else check if categoryId is defined than return empty products
     if (mongoose.Types.ObjectId.isValid(categoryId)) {
       categoryIdCriteria = { category: categoryId };
-    } else if (categoryId) {
-      res.status(200).json({
+    }
+     else if (categoryId && categoryId != "blank") {
+      return res.status(200).json({
         products: [],
       });
     }
@@ -85,6 +86,9 @@ module.exports = {
     })
       .populate("category")
       .then((products) => {
+        if (categoryId == "blank") {
+          products = products.filter((p)=>!p.category)
+        }
         res.status(200).json({
           products,
         });
@@ -130,13 +134,16 @@ module.exports = {
           message: "Category not found",
         });
       }
+
+      req.body.stock = JSON.parse(req.body.stock);
+      
       // For working with postman (postman send quantity as string)
-      stock.forEach((s) => {
+      req.body.stock.forEach((s) => {
         s.quantity = Number(s.quantity);
       });
 
       // Merge all equal size
-      let stockDistinctSize = groupBySize(stock);
+      let stockDistinctSize = groupBySize(req.body.stock);
 
       const product = new Product({
         _id: new mongoose.Types.ObjectId(),
